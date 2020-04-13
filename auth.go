@@ -18,8 +18,8 @@ type AuthResponse struct {
 	ClientToken       string    `json:"clientToken"`
 	SelectedProfile   Profile   `json:"selectedProfile"`
 	AvailableProfiles []Profile `json:"availableProfiles"`
-	Error             string    `json:"error"`
-	ErrorMessage      string    `json:"errorMessage"`
+	Error             *string   `json:"error"`
+	ErrorMessage      *string   `json:"errorMessage"`
 }
 
 type Profile struct {

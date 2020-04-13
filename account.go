@@ -35,6 +35,10 @@ func addAccount(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	if auth.Error != nil && *auth.Error == "ForbiddenOperationException" {
+		fmt.Println("Invalid credentials")
+		return nil
+	}
 	fmt.Printf("Logged in as %s\n", auth.SelectedProfile.Name)
 
 	config.ClientToken = auth.ClientToken
