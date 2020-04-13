@@ -96,5 +96,32 @@ func selectAccount(ctx *cli.Context) error {
 }
 
 func removeAccount(ctx *cli.Context) error {
-	return nil
+	username := ctx.Args().First()
+	if username == "" {
+		fmt.Println("You must specify account as an argument")
+		return nil
+	}
+	if _, ok := config.Accounts[username]; !ok {
+		fmt.Printf("There is no account called %s\n", username)
+		return nil
+	}
+	if err := invalidate(config.Accounts[username].AuthToken); err != nil {
+		return err
+	}
+
+	delete(config.Accounts, username)
+	if config.SelectedAccount == username {
+		if len(config.Accounts) == 0 {
+			config.SelectedAccount = ""
+		} else {
+			for key := range config.Accounts {
+				config.SelectedAccount = key
+				goto ok
+			}
+		}
+	}
+
+ok:
+	fmt.Printf("Successfully logged out from %s\n", username)
+	return updateConfig()
 }

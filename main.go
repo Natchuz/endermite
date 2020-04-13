@@ -60,6 +60,12 @@ var (
 						Action: selectAccount,
 						Usage:  "select account to use by default",
 					},
+					{
+						Name:    "remove",
+						Action:  removeAccount,
+						Aliases: []string{"rm"},
+						Usage:   "sing out of account",
+					},
 				},
 			},
 		},
