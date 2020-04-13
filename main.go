@@ -47,11 +47,18 @@ var (
 					{
 						Name:   "add",
 						Action: addAccount,
+						Usage:  "log into new account",
 					},
 					{
 						Name:    "list",
 						Action:  listAccounts,
 						Aliases: []string{"ls"},
+						Usage:   "list all accounts you are logged in",
+					},
+					{
+						Name:   "select",
+						Action: selectAccount,
+						Usage:  "select account to use by default",
 					},
 				},
 			},

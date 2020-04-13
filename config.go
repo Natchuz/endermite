@@ -13,20 +13,22 @@ const (
 )
 
 var (
-	config     = EndermiteConfig{}
+	config = EndermiteConfig{
+		Accounts: make(map[string]Account),
+	}
 	configPath = configdir.LocalConfig("endermite")
 	configFile = filepath.Join(configPath, configName)
 )
 
 type EndermiteConfig struct {
-	ClientToken string    `json:"clientToken"`
-	Accounts    []Account `json:"accounts"`
+	ClientToken     string             `json:"clientToken"`
+	Accounts        map[string]Account `json:"accounts"`
+	SelectedAccount string             `json:"selectedAccount"`
 }
 
 type Account struct {
 	AuthToken string `json:"authToken"`
 	Nick      string `json:"nick"`
-	Username  string `json:"username"`
 }
 
 func loadConfig() error {
