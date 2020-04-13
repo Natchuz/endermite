@@ -51,6 +51,11 @@ func addAccount(ctx *cli.Context) error {
 }
 
 func listAccounts(ctx *cli.Context) error {
+	if len(config.Accounts) == 0 {
+		fmt.Println("You aren't logged in into any account")
+		return nil
+	}
+
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 	_, _ = fmt.Fprintln(w, "\tUSERNAME\tNICK")
 	selectedAccount := config.Accounts[config.SelectedAccount]
