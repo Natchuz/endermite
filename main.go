@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-func main() {
-	app := &cli.App{
+var (
+	app = &cli.App{
 		Name:  "endermite",
 		Usage: "complex minecraft launcher to use from your favorite terminal",
 		Commands: []*cli.Command{
@@ -41,7 +41,27 @@ func main() {
 					},
 				},
 			},
+			{
+				Name: "account",
+				Subcommands: []*cli.Command{
+					{
+						Name:   "add",
+						Action: addAccount,
+					},
+					{
+						Name:    "list",
+						Action:  listAccounts,
+						Aliases: []string{"ls"},
+					},
+				},
+			},
 		},
+	}
+)
+
+func main() {
+	if err := loadConfig(); err != nil {
+		panic(err)
 	}
 
 	if err := app.Run(os.Args); err != nil {
